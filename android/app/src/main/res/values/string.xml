@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">1307365590072700</string>
+    <string name="fb_login_protocol_scheme">fb1307365590072700</string>
+    <string name="facebook_client_token">80d0f0b8a5fb116cc77d52c07be07ccd</string>
+    <string name="app_name">Clothing_app</string>
+</resources>
