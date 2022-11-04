@@ -14,7 +14,7 @@ Future main() async {
   await Firebase.initializeApp();
   await Hive.initFlutter();
   Hive.registerAdapter(ProductAdapter());
-  await Hive.openBox<Product>("Product");
+  await Hive.openBox("Products");
 
   runApp(const MyApp());
 }

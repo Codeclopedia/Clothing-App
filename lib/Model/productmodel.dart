@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:hive/hive.dart';
-import 'package:hive_generator/hive_generator.dart';
 
 part 'productmodel.g.dart';
 

@@ -1,8 +1,10 @@
 // ignore_for_file: camel_case_types
 
+import 'package:clothing_app/Model/Boxes.dart';
 import 'package:clothing_app/Model/productmodel.dart';
 
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 
 class allproductcontroller extends GetxController {
   RxList<Product> allitems = <Product>[].obs;
@@ -11,11 +13,26 @@ class allproductcontroller extends GetxController {
   RxList<List<Product>> orders = <List<Product>>[].obs;
 
   additemtofavorite(Product product) {
+    var boxInstance = Boxes.getBoxinstance();
+    boxInstance.put("favoriteProducts", "");
     favoriteItems.add(product);
+    var listdata = [];
+    favoriteItems.forEach((element) {
+      listdata.add(element);
+    });
+
+    boxInstance.put("favoriteProducts", listdata);
   }
 
   removeitemfromfavorite(int index) {
+    var boxInstance = Boxes.getBoxinstance();
+    boxInstance.put("favoriteProducts", "");
     favoriteItems.removeAt(index);
+    var listdata = [];
+    favoriteItems.forEach((element) {
+      listdata.add(element);
+    });
+    boxInstance.put("favoriteProducts", listdata);
   }
 
   additemtocart(Product product) {
@@ -24,6 +41,16 @@ class allproductcontroller extends GetxController {
 
   removeitemfromcart(int index) {
     cartitem.removeAt(index);
+  }
+
+  getfavoriteProductsItems() async {
+    var boxInstance = Boxes.getBoxinstance();
+    var data = boxInstance.get("favoriteProducts");
+    data.forEach((element) {
+      favoriteItems.add(element);
+      print(element);
+    });
+    print(data);
   }
 
   void initialize() {
@@ -158,6 +185,16 @@ Machine wash""",
   @override
   void onInit() {
     initialize();
+    getfavoriteProductsItems();
     super.onInit();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    Hive.box("favoriteProducts").close();
+    Hive.box("CartProducts").close();
+    Hive.box("OrderedProducts").close();
   }
 }

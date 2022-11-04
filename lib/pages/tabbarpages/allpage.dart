@@ -1,12 +1,9 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names
 import 'dart:math';
-
+import 'package:flutter/material.dart';
 import 'package:clothing_app/Controllers/allproduct_controller.dart';
 import 'package:clothing_app/pages/product.dart';
-import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 
 class Allpagebody extends StatefulWidget {
@@ -169,7 +166,7 @@ class _AllpagebodyState extends State<Allpagebody> {
                   Positioned(
                     right: 30,
                     top: 20,
-                    child: InkWell(
+                    child: Obx(() => InkWell(
                         onTap: () {
                           int productindex = allproduct.favoriteItems
                               .indexWhere((element) =>
@@ -188,7 +185,7 @@ class _AllpagebodyState extends State<Allpagebody> {
                               ? Icons.favorite
                               : Icons.favorite_border_outlined,
                           size: MediaQuery.of(context).size.width * 0.07,
-                        )),
+                        ))),
                   ),
                 ],
               ),
