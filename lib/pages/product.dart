@@ -362,7 +362,7 @@ class _ProductState extends State<Product_Page> {
                     }
                   : {
                       allproduct
-                          .additemtocart(allproduct.allitems[widget.index]),
+                          .additemstocart(),
                       Get.snackbar(
                         "Added to cart",
                         "following item added to cart",

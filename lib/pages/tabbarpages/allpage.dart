@@ -17,7 +17,7 @@ class Allpagebody extends StatefulWidget {
 class _AllpagebodyState extends State<Allpagebody> {
   PageController pagecontroller = PageController();
 
-  allproductcontroller allproduct = Get.put(allproductcontroller());
+  allproductcontroller allproduct = Get.find();
 
   @override
   void initState() {
@@ -166,7 +166,7 @@ class _AllpagebodyState extends State<Allpagebody> {
                   Positioned(
                     right: 30,
                     top: 20,
-                    child: Obx(() => InkWell(
+                    child: InkWell(
                         onTap: () {
                           int productindex = allproduct.favoriteItems
                               .indexWhere((element) =>
@@ -179,7 +179,7 @@ class _AllpagebodyState extends State<Allpagebody> {
                                 }
                               : {allproduct.removeitemfromfavorite(index)};
                         },
-                        child: Icon(
+                        child: Obx(() =>  Icon(
                           allproduct.favoriteItems
                                   .contains(allproduct.allitems[index])
                               ? Icons.favorite

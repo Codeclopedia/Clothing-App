@@ -1,14 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:clothing_app/favoriteproducts.dart';
 import 'package:clothing_app/pages/cartpage.dart';
 import 'package:clothing_app/pages/tabbarpages/allpage.dart';
 import 'package:clothing_app/widgets/custom_drawer.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:spring/spring.dart';
@@ -42,6 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String userName = '';
 
+  bool isSearchtabopen = false;
+
   @override
   void initState() {
     // fetchUserName();
@@ -65,6 +65,120 @@ class _HomeScreenState extends State<HomeScreen> {
   //     });
   //   });
   // }
+
+  AppBar SimpleAppbar() {
+    return AppBar(
+      toolbarHeight: MediaQuery.of(context).size.height * 0.08,
+      leading: Padding(
+        padding: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.03,
+            left: MediaQuery.of(context).size.width * 0.045),
+        child: InkWell(
+          onTap: () {
+            setState(() {
+              xangle = 250;
+              yangle = 100;
+              homepagescale = 0.8;
+              draweropened = true;
+            });
+          },
+          child: Icon(
+            Icons.notes,
+            color: Colors.black,
+            size: MediaQuery.of(context).size.width * 0.095,
+          ),
+        ),
+      ),
+      actions: [
+        Padding(
+          padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.04,
+              right: MediaQuery.of(context).size.width * 0.045),
+          child: GestureDetector(
+            onTap: () => setState(() {
+              isSearchtabopen = true;
+            }),
+            child: Icon(
+              Icons.search,
+              color: Colors.black,
+              size: MediaQuery.of(context).size.width * 0.07,
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.04,
+              right: MediaQuery.of(context).size.width * 0.045),
+          child: GestureDetector(
+            onTap: () => Get.to(()=> FavoritePage()),
+            child: Icon(
+              Icons.favorite_border,
+              color: Colors.black,
+              size: MediaQuery.of(context).size.width * 0.07,
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.04,
+            right: MediaQuery.of(context).size.width * 0.045,
+          ),
+          child: GestureDetector(
+            onTap: () {
+              Get.to(() => Cartpage());
+            },
+            child: Icon(
+              Icons.local_mall,
+              color: Colors.black,
+              size: MediaQuery.of(context).size.width * 0.07,
+            ),
+          ),
+        )
+      ],
+      backgroundColor: Colors.white,
+      elevation: 0,
+    );
+  }
+
+  PreferredSizeWidget searchbar() {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(MediaQuery.of(context).size.height*0.08),
+      child: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.02,vertical: MediaQuery.of(context).size.height*0.01),
+          child: Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.02),
+            decoration: BoxDecoration(
+
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(color: Colors.orange,width: MediaQuery.of(context).size.width*0.005)
+            ),
+            height: 100,
+            width: double.infinity,
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Search",
+                      border: InputBorder.none
+                    ),
+                  ),
+                ),
+                IconButton(onPressed: () {
+                  setState(() {
+                    isSearchtabopen = false;
+                  });
+                }, padding: EdgeInsets.zero,icon: Icon(Icons.close,color: Colors.black,))
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,59 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             child: Scaffold(
               backgroundColor: Colors.white,
-              appBar: AppBar(
-                toolbarHeight: MediaQuery.of(context).size.height * 0.08,
-                leading: Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.03,
-                      left: MediaQuery.of(context).size.width * 0.045),
-                  child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        xangle = 250;
-                        yangle = 100;
-                        homepagescale = 0.8;
-                        draweropened = true;
-                      });
-                    },
-                    child: Icon(
-                      Icons.notes,
-                      color: Colors.black,
-                      size: MediaQuery.of(context).size.width * 0.095,
-                    ),
-                  ),
-                ),
-                actions: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.04,
-                        right: MediaQuery.of(context).size.width * 0.045),
-                    child: Icon(
-                      Icons.search,
-                      color: Colors.black,
-                      size: MediaQuery.of(context).size.width * 0.07,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.04,
-                      right: MediaQuery.of(context).size.width * 0.045,
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.to(() => Cartpage());
-                      },
-                      child: Icon(
-                        Icons.local_mall,
-                        color: Colors.black,
-                        size: MediaQuery.of(context).size.width * 0.07,
-                      ),
-                    ),
-                  )
-                ],
-                backgroundColor: Colors.white,
-                elevation: 0,
-              ),
+              appBar: isSearchtabopen ? searchbar() : SimpleAppbar(),
               body: ListView(
                 children: [
                   Padding(
@@ -164,16 +226,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(left:  MediaQuery.of(context).size.width * 0.05,),
+                    padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.05,
+                    ),
                     child: Row(
                       children: [
                         Spring.animatedCard(
                             fromWidth: 0,
                             toWidth: MediaQuery.of(context).size.width * 0.6,
+                            heightDuration: const Duration(seconds: 2),
+                            widthDuration: const Duration(seconds: 2),
                             fromHeight: 0,
-                            toHeight: MediaQuery.of(context).size.height * 0.013,
+                            toHeight:
+                                MediaQuery.of(context).size.height * 0.013,
                             fromElevation: 0,
-
                             toElevation: 0,
                             child: Container(
                               color: Colors.orange,
@@ -183,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.05,
+                        left: MediaQuery.of(context).size.width * 0.05,
                         top: MediaQuery.of(context).size.height * 0.015,
                         bottom: MediaQuery.of(context).size.height * 0.015),
                     child: SizedBox(

@@ -1,5 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'package:clothing_app/Controllers/allproduct_controller.dart';
 import 'package:clothing_app/Controllers/checkAppState.dart';
 import 'package:clothing_app/Model/productmodel.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final String page = "Login";
+  allproductcontroller allproduct = Get.put(allproductcontroller());
 
   // This widget is the root of your application.
   @override

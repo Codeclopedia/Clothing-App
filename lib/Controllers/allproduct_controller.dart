@@ -35,8 +35,18 @@ class allproductcontroller extends GetxController {
     boxInstance.put("favoriteProducts", listdata);
   }
 
-  additemtocart(Product product) {
-    cartitem.add(product);
+  additemstocart() {
+    var boxInstance = Boxes.getBoxinstance();
+    boxInstance.put("cartProducts", "");
+    favoriteItems.forEach((element) {
+      cartitem.add(element);
+    });
+    var listdata = [];
+    cartitem.forEach((element) {
+      listdata.add(element);
+    });
+
+    boxInstance.put("cartProducts", listdata);
   }
 
   removeitemfromcart(int index) {
@@ -51,6 +61,14 @@ class allproductcontroller extends GetxController {
       print(element);
     });
     print(data);
+  }
+
+  getCartProductsItems() async {
+    var boxInstance = Boxes.getBoxinstance();
+    var data = boxInstance.get("cartProducts");
+    data.forEach((element) {
+      cartitem.add(element);
+    });
   }
 
   void initialize() {
@@ -186,6 +204,7 @@ Machine wash""",
   void onInit() {
     initialize();
     getfavoriteProductsItems();
+    getCartProductsItems();
     super.onInit();
   }
 

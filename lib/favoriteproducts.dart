@@ -239,6 +239,27 @@ class FavoritePage extends StatelessWidget {
                   ))
             ],
           ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.02),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: ElevatedButton.icon(
+                icon:  Icon(Icons.add_shopping_cart_rounded,size:  MediaQuery.of(context).size.width*0.06,),
+                style: ElevatedButton.styleFrom(
+                    fixedSize: Size(MediaQuery.of(context).size.width * 0.9,
+                        MediaQuery.of(context).size.height * 0.07),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                backgroundColor: Colors.orange,
+                ),
+                label: Text("Add to cart",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.06)),
+                onPressed: () {
+                  allproduct.additemstocart();
+                },
+              ),
+            ),
+          )
         ],
       ),
     );
