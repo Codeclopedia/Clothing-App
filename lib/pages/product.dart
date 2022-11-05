@@ -29,6 +29,12 @@ class _ProductState extends State<Product_Page> {
     Colors.deepOrange,
     Colors.deepPurple
   ];
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    Get.closeAllSnackbars();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -362,7 +368,7 @@ class _ProductState extends State<Product_Page> {
                     }
                   : {
                       allproduct
-                          .additemstocart(),
+                          .additemstocart(allproduct.allitems[widget.index]),
                       Get.snackbar(
                         "Added to cart",
                         "following item added to cart",

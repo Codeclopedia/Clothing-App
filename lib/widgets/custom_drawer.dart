@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:clothing_app/pages/orderpage.dart';
 import 'package:clothing_app/widgets/drawertile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomDrawer extends StatefulWidget {
@@ -106,7 +108,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 DrawerTile(title: "Profile", onpressed: () {}),
                 DrawerTile(title: "today", onpressed: () {}),
                 DrawerTile(title: "Favorite Products", onpressed: () {}),
-                DrawerTile(title: "Your Orders", onpressed: () {}),
+                DrawerTile(
+                    title: "Your Orders",
+                    onpressed: () {
+                      Get.to(() => const OrderPage());
+                    }),
                 DrawerTile(title: "Contact Us", onpressed: () {}),
                 DrawerTile(title: "Settings", onpressed: () {}),
                 DrawerTile(

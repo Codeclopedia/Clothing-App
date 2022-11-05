@@ -8,6 +8,7 @@ import 'package:hive/hive.dart';
 
 class allproductcontroller extends GetxController {
   RxList<Product> allitems = <Product>[].obs;
+
   RxList<Product> cartitem = <Product>[].obs;
   RxList<Product> favoriteItems = <Product>[].obs;
   RxList<List<Product>> orders = <List<Product>>[].obs;
@@ -35,12 +36,28 @@ class allproductcontroller extends GetxController {
     boxInstance.put("favoriteProducts", listdata);
   }
 
-  additemstocart() {
+  additemstocart(Product product) {
     var boxInstance = Boxes.getBoxinstance();
     boxInstance.put("cartProducts", "");
+
+    cartitem.add(product);
+
+    var listdata = [];
+    cartitem.forEach((element) {
+      listdata.add(element);
+    });
+
+    boxInstance.put("cartProducts", listdata);
+  }
+
+  additemsfromFavoritetocart() {
+    var boxInstance = Boxes.getBoxinstance();
+    boxInstance.put("cartProducts", "");
+
     favoriteItems.forEach((element) {
       cartitem.add(element);
     });
+
     var listdata = [];
     cartitem.forEach((element) {
       listdata.add(element);
@@ -50,7 +67,15 @@ class allproductcontroller extends GetxController {
   }
 
   removeitemfromcart(int index) {
+    var boxInstance = Boxes.getBoxinstance();
+    boxInstance.put("cartProducts", "");
     cartitem.removeAt(index);
+    var listdata = [];
+    cartitem.forEach((element) {
+      listdata.add(element);
+    });
+
+    boxInstance.put("cartProducts", listdata);
   }
 
   getfavoriteProductsItems() async {
