@@ -13,6 +13,18 @@ class allproductcontroller extends GetxController {
   RxList<Product> favoriteItems = <Product>[].obs;
   RxList<List<Product>> orders = <List<Product>>[].obs;
 
+  additemtoorder() {
+    var boxInstance = Boxes.getBoxinstance();
+    boxInstance.put("OrderedProducts", "");
+    orders.add(cartitem);
+    var listdata = [];
+    orders.forEach((element) {
+      listdata.add(element);
+    });
+
+    boxInstance.put("OrderedProducts", listdata);
+  }
+
   additemtofavorite(Product product) {
     var boxInstance = Boxes.getBoxinstance();
     boxInstance.put("favoriteProducts", "");
@@ -81,19 +93,34 @@ class allproductcontroller extends GetxController {
   getfavoriteProductsItems() async {
     var boxInstance = Boxes.getBoxinstance();
     var data = boxInstance.get("favoriteProducts");
-    data.forEach((element) {
-      favoriteItems.add(element);
-      print(element);
-    });
-    print(data);
+    data == null
+        ? {favoriteItems = <Product>[].obs}
+        : data.forEach((element) {
+            favoriteItems.add(element);
+            print(element);
+          });
   }
 
   getCartProductsItems() async {
     var boxInstance = Boxes.getBoxinstance();
     var data = boxInstance.get("cartProducts");
-    data.forEach((element) {
-      cartitem.add(element);
-    });
+    data == null
+        ? {cartitem = <Product>[].obs}
+        : data.forEach((element) {
+            cartitem.add(element);
+          });
+  }
+
+  getorderedproducts() {
+    var boxInstance = Boxes.getBoxinstance();
+    var data = boxInstance.get("OrderedProducts");
+    data == null
+        ? {
+            orders = [<Product>[]].obs
+          }
+        : data.forEach((element) {
+            orders.add(element);
+          });
   }
 
   void initialize() {
@@ -230,6 +257,7 @@ Machine wash""",
     initialize();
     getfavoriteProductsItems();
     getCartProductsItems();
+    getorderedproducts();
     super.onInit();
   }
 

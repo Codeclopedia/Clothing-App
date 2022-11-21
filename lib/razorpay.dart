@@ -33,6 +33,7 @@ class _RazorPayPaymentState extends State<RazorPayPayment> {
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     Get.to(() => const SucessfulPayment());
+    controller.additemtoorder();
   }
 
   void _handlePaymentError(PaymentFailureResponse response) async {
