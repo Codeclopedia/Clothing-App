@@ -15,6 +15,11 @@ More than 7 Ready-to-use Pages
 [Rest API](https://fakestoreapi.com/)
 [Hive](https://docs.hivedb.dev/#/) for local storage
 
+ ## Contact me here
+ [<img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" />](joshi.chetan.work@gmail.com)
+  [<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/chetan-joshi-216178250/)
+ [<img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" />](https://github.com/Codeclopedia)
+
 ## App video
 
 https://user-images.githubusercontent.com/88575762/203801401-e42dcedc-7b11-40d4-98a1-8ab5e1653087.mp4
